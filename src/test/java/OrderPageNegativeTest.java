@@ -1,3 +1,4 @@
+import config.OrderButtonPosition;
 import pageobjects.MainPage;
 import pageobjects.OrderPage;
 
@@ -7,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.concurrent.TimeUnit;
+
 import static config.AppConfig.APP_URL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -15,7 +19,7 @@ public class OrderPageNegativeTest {
     private WebDriver driver;
     public OrderPage objOrderPage;
     public MainPage objMainPage;
-    private final int orderBtnPosition = 0;
+    private final OrderButtonPosition orderBtnPosition = OrderButtonPosition.TOP;
 
     @Before
     public void setUp() {
@@ -24,6 +28,7 @@ public class OrderPageNegativeTest {
         objOrderPage = new OrderPage(driver);
         objMainPage = new MainPage(driver);
         driver.get(APP_URL);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     //Проверяем отображение и текст ошибки если при нажатии кнопки Далее при оформлении заказ все поля пустые

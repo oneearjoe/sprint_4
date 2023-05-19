@@ -1,3 +1,4 @@
+import config.OrderButtonPosition;
 import pageobjects.MainPage;
 import pageobjects.OrderPage;
 
@@ -24,7 +25,7 @@ public class OrderPagePositiveTest {
     private WebDriver driver;
     public OrderPage objOrderPage;
     public MainPage objMainPage;
-    private final int orderBtnPosition;
+    private final OrderButtonPosition orderBtnPosition;
     private final String firstName;
     private final String lastName;
     private final String address;
@@ -34,7 +35,7 @@ public class OrderPagePositiveTest {
     private final String scooterColor;
     private final String comment;
 
-    public OrderPagePositiveTest(int orderBtnPosition, String firstName, String lastName, String address, String subwayStation, String phoneNumber, String comment, String date, String scooterColor) {
+    public OrderPagePositiveTest(OrderButtonPosition orderBtnPosition, String firstName, String lastName, String address, String subwayStation, String phoneNumber, String comment, String date, String scooterColor) {
         this.orderBtnPosition = orderBtnPosition;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,8 +50,8 @@ public class OrderPagePositiveTest {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {0, "Дарт", "Вейдер", "Планета Корусант Храм джедааев", "Сокол", "89999999999", "Я твой отец", "05.04.2023", "black"},
-                {1, "Оби", "Ван", "Татуин", "Лубянка", "+79997777777", "Это не те дроиды, что вы ищете.", "15.04.2023", "grey"},
+                {OrderButtonPosition.TOP, "Дарт", "Вейдер", "Планета Корусант Храм джедааев", "Сокол", "89999999999", "Я твой отец", "05.04.2023", "black"},
+                {OrderButtonPosition.BOTTOM, "Оби", "Ван", "Татуин", "Лубянка", "+79997777777", "Это не те дроиды, что вы ищете.", "15.04.2023", "grey"},
         };
 
     }
@@ -62,6 +63,7 @@ public class OrderPagePositiveTest {
         objOrderPage = new OrderPage(driver);
         objMainPage = new MainPage(driver);
         driver.get(APP_URL);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     //Тест на то что можно успешно сделать заказ
@@ -85,7 +87,6 @@ public class OrderPagePositiveTest {
                 containsString("Хотите оформить заказ?"));
         //Дефект, в хром не нажимается кнопка Да
         objOrderPage.clickYesOrder();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         assertEquals("Не появилось окно (Заказ оформлен)",
                 objOrderPage.getFinalOrderMessage(), "Заказ оформлен");
     }

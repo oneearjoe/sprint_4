@@ -47,6 +47,7 @@ public class MainPageTest {
         driver = new ChromeDriver();
         objMainPage = new MainPage(driver);
         driver.get(APP_URL);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     //Проверка текстов в FAQ
@@ -54,7 +55,6 @@ public class MainPageTest {
     public void checkAnswersTextOnMainPage(){
         objMainPage.scrollDown();
         objMainPage.getListQuestions().get(index).click();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         assertEquals("Текст не совпадает: ", objMainPage.getListAnswer().get(index).getText(), expectedText);
     }
 

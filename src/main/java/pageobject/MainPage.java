@@ -1,5 +1,6 @@
 package pageobjects;
 
+import config.OrderButtonPosition;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.JavascriptExecutor;
@@ -19,18 +20,16 @@ public class MainPage {
     private final static By listAnswer = By.xpath("//div[@data-accordion-component='AccordionItemPanel']");
 
     //Нижняя кнопка "Заказать"
-    private final static By bottom_order_button = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
+    private final static By bottomOrderButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM']");
 
     //Верхняя кнопка "Заказать"
-    private final static By top_order_buton = By.xpath(".//button[@class='Button_Button__ra12g']");
+    private final static By topOrderButton = By.xpath(".//button[@class='Button_Button__ra12g']");
     private final static By scooterlogo =By.className("Header_LogoScooter__3lsAR");
     private final static By yandexLogo = By.className("Header_LogoYandex__3TSOI");
     private final static By mainHeader = By.className("Home_Header__iJKdX");
     private final static By orderStatusButton = By.className("Header_Link__1TAG7");
     private final static By orderNumberInputField = By.xpath("//input[@placeholder ='Введите номер заказа']");
     private final static By goButton = By.xpath("//button[text() = 'Go!']");
-
-
 
     public MainPage(WebDriver driver){
         this.driver = driver;
@@ -48,15 +47,15 @@ public class MainPage {
 
     //Скролл до нижней кнопки "Заказать"
     public void scrollDown(){
-        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(bottom_order_button));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(bottomOrderButton));
     }
 
-    public void clickOrderButton(int btn){
-        if (btn==0){
-            driver.findElement(top_order_buton).click();
-        } else if (btn==1){
+    public void clickOrderButton(OrderButtonPosition btn){
+        if (btn == OrderButtonPosition.TOP){
+            driver.findElement(topOrderButton).click();
+        } else {
             scrollDown();
-            driver.findElement(bottom_order_button).click();
+            driver.findElement(bottomOrderButton).click();
         }
     }
 

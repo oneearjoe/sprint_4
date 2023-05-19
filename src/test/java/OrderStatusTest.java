@@ -27,13 +27,13 @@ public class OrderStatusTest {
         objOrderPage = new OrderPage(driver);
         objMainPage = new MainPage(driver);
         driver.get(APP_URL);
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     //Проверяем ошибку если закза не найден
     @Test
     public void checkErrorMessageWhenOrderDoesNotExist(){
         objMainPage.clickOrderStatusButton();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         objMainPage.inputOrderNumber("123");
         objMainPage.clickGoButton();
         assertTrue(objOrderPage.isOrderNotFoundErrorVisible());

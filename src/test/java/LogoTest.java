@@ -1,3 +1,4 @@
+import config.OrderButtonPosition;
 import pageobjects.MainPage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -29,7 +30,7 @@ public class LogoTest{
     //Проверка что после клика на лого Самокат переходим на главную страницу
     @Test
     public void  checkThatClickOnScooterLogoLeadsToTheMainPage(){
-        objMainPage.clickOrderButton(0);
+        objMainPage.clickOrderButton(OrderButtonPosition.TOP);
         objMainPage.clickOnScooterLogo();
         assertTrue("Открылась не главная страница, не найден MainHeader", objMainPage.mainHeaderIsPresent());
     }
